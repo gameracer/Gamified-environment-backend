@@ -1,0 +1,226 @@
+{
+  "info": {
+    "name": "Gamified Environment Backend",
+    "_postman_id": "b12f2a21-4f56-4d9b-9a11-cf52b3a25d10",
+    "description": "Postman collection for the Gamified Environmental Learning backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{"username": "gowthamreddysomala", "password": rhkg38yw4w", "displayName": "Gowtham Reddy"}
+            },
+            "url": { "raw": "http://localhost:8080/auth/register", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"gowtham\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "http://localhost:8080/auth/login", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["auth", "login"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": { "raw": "http://localhost:8080/user/me", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["user", "me"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Modules",
+      "item": [
+        {
+          "name": "Get All Modules",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/modules", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["modules"] }
+          }
+        },
+        {
+          "name": "Create Module",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Climate Basics\",\n  \"description\": \"Intro to climate change\"\n}"
+            },
+            "url": { "raw": "http://localhost:8080/modules", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["modules"] }
+          }
+        },
+        {
+          "name": "Get Module by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/modules/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["modules", "1"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Lessons",
+      "item": [
+        {
+          "name": "Get Lessons by Module",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/lessons/module/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["lessons", "module", "1"] }
+          }
+        },
+        {
+          "name": "Create Lesson",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Greenhouse Effect\",\n  \"content\": \"The greenhouse effect traps heat in Earth's atmosphere.\"\n}"
+            },
+            "url": { "raw": "http://localhost:8080/lessons/module/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["lessons", "module", "1"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Quiz",
+      "item": [
+        {
+          "name": "Get Quiz for Lesson",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/quiz/lesson/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["quiz", "lesson", "1"] }
+          }
+        },
+        {
+          "name": "Submit Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"12\": \"A\",\n  \"13\": \"C\"\n}"
+            },
+            "url": { "raw": "http://localhost:8080/quiz/submit/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["quiz", "submit", "1"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Challenges",
+      "item": [
+        {
+          "name": "Get All Challenges",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/challenges", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["challenges"] }
+          }
+        },
+        {
+          "name": "Submit Challenge",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "" }
+              ]
+            },
+            "url": { "raw": "http://localhost:8080/challenges/1/submit", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["challenges", "1", "submit"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Leaderboard",
+      "item": [
+        {
+          "name": "Top 10",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/leaderboard/top", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["leaderboard", "top"] }
+          }
+        },
+        {
+          "name": "My Rank",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "http://localhost:8080/leaderboard/rank", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["leaderboard", "rank"] }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
