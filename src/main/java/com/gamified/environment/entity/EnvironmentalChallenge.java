@@ -17,7 +17,8 @@ public class EnvironmentalChallenge {
     private Long id;
 
     private String title;
+    private String description;
+    private String difficulty; // EASY | MEDIUM | HARD
     private String category;
     private int xpReward;
-    private String description;
 }

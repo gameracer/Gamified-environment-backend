@@ -25,6 +25,8 @@ public class Module {
 
     private String difficulty; // EASY | MEDIUM | HARD
 
+    private Integer orderIndex; // Order in which modules should be displayed
+
     // One module → many lessons
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons = new ArrayList<>();

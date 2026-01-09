@@ -18,8 +18,14 @@ public class Lesson {
 
     private String title;
 
+    private String description; // Short description of the lesson
+
     @Column(columnDefinition = "TEXT")
-    private String content;   // Lesson text or HTML content
+    private String content; // Lesson text or HTML content
+
+    private Integer orderIndex; // Order within the module
+
+    private Integer xpReward; // XP earned upon completion
 
     // Many lessons → one module
     @ManyToOne
