@@ -32,11 +32,11 @@ export const Login: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-mesh relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-mesh relative overflow-hidden py-12 px-4">
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
-                    className="absolute top-20 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"
+                    className="absolute top-20 left-10 w-40 h-40 bg-primary/25 rounded-full blur-3xl"
                     animate={{
                         y: [0, -30, 0],
                         scale: [1, 1.1, 1],
@@ -48,7 +48,7 @@ export const Login: React.FC = () => {
                     }}
                 />
                 <motion.div
-                    className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl"
+                    className="absolute bottom-20 right-10 w-48 h-48 bg-secondary/25 rounded-full blur-3xl"
                     animate={{
                         y: [0, 30, 0],
                         scale: [1, 1.2, 1],
@@ -61,7 +61,7 @@ export const Login: React.FC = () => {
                     }}
                 />
                 <motion.div
-                    className="absolute top-1/2 left-1/3 w-24 h-24 bg-accent/20 rounded-full blur-3xl"
+                    className="absolute top-1/2 left-1/3 w-28 h-28 bg-accent/25 rounded-full blur-3xl"
                     animate={{
                         x: [-20, 20, -20],
                         y: [-20, 20, -20],
@@ -75,23 +75,23 @@ export const Login: React.FC = () => {
                 />
             </div>
 
-            <div className="w-full max-w-md px-4 relative z-10">
+            <div className="w-full max-w-md relative z-10">
                 {/* Header */}
                 <motion.div
-                    className="text-center mb-8"
+                    className="text-center mb-10"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
                     <motion.div
-                        className="inline-block mb-4"
+                        className="inline-block mb-5"
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     >
-                        <Sparkles className="w-20 h-20 mx-auto text-accent drop-shadow-lg" />
+                        <Sparkles className="w-20 h-20 mx-auto text-accent drop-shadow-[0_4px_20px_rgba(251,191,36,0.4)]" />
                     </motion.div>
-                    <h1 className="text-5xl font-bold gradient-text mb-2">Welcome Back!</h1>
-                    <p className="text-lg text-gray-700 font-medium">Continue your learning adventure</p>
+                    <h1 className="text-4xl sm:text-5xl font-extrabold gradient-text mb-2 tracking-tight">Welcome Back!</h1>
+                    <p className="text-base sm:text-lg text-gray-600 font-medium">Continue your learning adventure</p>
                 </motion.div>
 
                 {/* Login Card */}
@@ -100,13 +100,13 @@ export const Login: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    <Card glass className="p-8 backdrop-blur-xl">
+                    <Card glass className="p-6 sm:p-8 rounded-2xl shadow-xl border border-white/50">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                             {error && (
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    className="bg-danger/10 border-2 border-danger/30 text-danger p-4 rounded-xl font-bold text-center"
+                                    className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl font-semibold text-center text-sm"
                                 >
                                     {error}
                                 </motion.div>
@@ -147,10 +147,13 @@ export const Login: React.FC = () => {
                             </Button>
                         </form>
 
-                        <div className="mt-6 text-center">
-                            <p className="text-gray-600">
+                        <div className="mt-8 pt-6 border-t border-gray-200/80 text-center">
+                            <p className="text-gray-600 text-sm">
                                 New to the adventure?{' '}
-                                <Link to="/register" className="text-primary font-bold hover:text-primary-dark transition-colors">
+                                <Link
+                                    to="/register"
+                                    className="text-primary font-bold hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg px-1 py-0.5 transition-colors"
+                                >
                                     Create Account
                                 </Link>
                             </p>
@@ -160,7 +163,7 @@ export const Login: React.FC = () => {
 
                 {/* Footer */}
                 <motion.p
-                    className="text-center mt-6 text-gray-600 text-sm"
+                    className="text-center mt-8 text-gray-500 text-sm"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}

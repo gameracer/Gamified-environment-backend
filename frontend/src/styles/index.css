@@ -1,49 +1,148 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@200..1000&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
+/* Tailwind v4 theme – custom colors, fonts, gradients (tailwind.config.js is ignored in v4) */
+@theme {
+  /* Colors */
+  --color-primary: hsl(220, 90%, 60%);
+  --color-primary-dark: hsl(220, 90%, 45%);
+  --color-primary-light: hsl(220, 90%, 75%);
+  --color-primary-glow: hsla(220, 90%, 60%, 0.3);
+
+  --color-secondary: hsl(280, 85%, 65%);
+  --color-secondary-dark: hsl(280, 85%, 50%);
+  --color-secondary-light: hsl(280, 85%, 80%);
+
+  --color-accent: hsl(45, 95%, 60%);
+  --color-accent-dark: hsl(45, 95%, 45%);
+  --color-accent-light: hsl(45, 95%, 75%);
+
+  --color-success: hsl(150, 75%, 50%);
+  --color-success-dark: hsl(150, 75%, 35%);
+  --color-success-light: hsl(150, 75%, 65%);
+
+  --color-danger: hsl(10, 85%, 60%);
+  --color-danger-dark: hsl(10, 85%, 45%);
+  --color-danger-light: hsl(10, 85%, 75%);
+
+  /* Background/surface (for gradient stops like from-background) */
+  --color-background: hsl(220, 20%, 98%);
+
+  /* Font families */
+  --font-heading: 'Poppins', 'Fredoka', sans-serif;
+  --font-body: 'Inter', 'Nunito', sans-serif;
+  --font-accent: 'Space Grotesk', monospace;
+
+  /* Box shadows */
+  --shadow-glow: 0 0 24px hsla(220, 90%, 60%, 0.3);
+  --shadow-glow-accent: 0 0 24px hsla(45, 95%, 60%, 0.4);
+  --shadow-3d: 0 6px 0 rgba(0, 0, 0, 0.15);
+
+  /* Animations */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-bounce-in: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --animate-slide-up: slide-up 0.4s ease-out;
+  --animate-shake: shake 0.5s ease-in-out;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+  @keyframes bounce-in {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+}
+
+/* Design tokens – aligned with Tailwind theme */
 :root {
-  /* Vibrant, Gamified Palette */
-  --color-primary: #58cc02;
-  /* Duolingo Green */
-  --color-primary-dark: #58a700;
-  --color-primary-light: #89e219;
+  --color-primary: hsl(220, 90%, 60%);
+  --color-primary-dark: hsl(220, 90%, 45%);
+  --color-primary-light: hsl(220, 90%, 75%);
+  --color-primary-glow: hsla(220, 90%, 60%, 0.25);
 
-  --color-secondary: #1cb0f6;
-  /* Blue */
-  --color-secondary-dark: #1899d6;
+  --color-secondary: hsl(280, 85%, 65%);
+  --color-secondary-dark: hsl(280, 85%, 50%);
+  --color-secondary-light: hsl(280, 85%, 80%);
 
-  --color-accent: #ffc800;
-  /* Yellow/Gold */
-  --color-accent-dark: #e5a50a;
+  --color-accent: hsl(45, 95%, 60%);
+  --color-accent-dark: hsl(45, 95%, 45%);
+  --color-accent-light: hsl(45, 95%, 75%);
 
-  --color-danger: #ff4b4b;
-  /* Red */
-  --color-danger-dark: #d33131;
+  --color-success: hsl(150, 75%, 50%);
+  --color-success-dark: hsl(150, 75%, 35%);
 
-  --color-background: #f7f7f7;
-  --color-surface: #ffffff;
+  --color-danger: hsl(10, 85%, 60%);
+  --color-danger-dark: hsl(10, 85%, 45%);
 
-  --color-text: #3c3c3c;
-  --color-text-light: #777777;
+  --color-background: hsl(220, 20%, 98%);
+  --color-surface: hsl(0, 0%, 100%);
+  --color-text: hsl(220, 20%, 15%);
+  --color-text-muted: hsl(220, 15%, 45%);
+  --color-border: hsl(220, 15%, 92%);
 
-  --font-heading: 'Fredoka', sans-serif;
-  --font-body: 'Nunito', sans-serif;
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, hsl(30, 95%, 60%) 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, var(--color-primary-light) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, var(--color-secondary-light) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, var(--color-accent-light) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsl(150, 75%, 85%) 0px, transparent 50%);
 
-  /* Juicy Shadows */
-  --shadow-sm: 0 2px 0 rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 0 rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 8px 0 rgba(0, 0, 0, 0.15);
-  --shadow-card: 0 4px 0 #e5e5e5;
-  --shadow-card-hover: 0 8px 0 #e5e5e5;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 24px 56px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 32px var(--color-primary-glow);
+  --shadow-card: 0 4px 0 hsl(220, 15%, 90%);
+  --shadow-card-hover: 0 8px 0 hsl(220, 15%, 88%);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Space Grotesk', monospace;
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -53,19 +152,24 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  letter-spacing: 0.01em;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
-  color: #4b4b4b;
-  letter-spacing: 0.5px;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; }
+h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; }
 
 button {
   font-family: var(--font-heading);
@@ -78,18 +182,100 @@ button {
 a {
   text-decoration: none;
   color: inherit;
+  transition: color var(--transition-fast);
 }
 
-.container {
-  max-width: 1000px;
-  /* Tighter container for better focus */
-  margin: 0 auto;
-  padding: 0 1.5rem;
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-/* Utility classes */
+.glass-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tailwind v4 uses bg-linear-* not bg-gradient-to-* – add compatibility aliases so existing classes work */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+.bg-gradient-to-bl {
+  background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
+}
+.bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+.bg-gradient-to-tl {
+  background-image: linear-gradient(to top left, var(--tw-gradient-stops));
+}
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+.bg-gradient-to-tr {
+  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
+}
+
+/* Gradient backgrounds – Tailwind v4 has no --background-image-* theme namespace, so we define these utilities */
+.bg-gradient-primary {
+  background-image: var(--gradient-primary);
+}
+
+.bg-gradient-accent {
+  background-image: var(--gradient-accent);
+}
+
+.bg-gradient-success {
+  background-image: linear-gradient(135deg, var(--color-success) 0%, hsl(170, 75%, 50%) 100%);
+}
+
+/* Auth layout background (mesh) */
+.bg-mesh,
+.bg-gradient-mesh {
+  background: var(--gradient-mesh);
+  background-color: var(--color-background);
+}
+
+/* Card base – consistent radius, overflow, content spacing */
+.card-base {
+  border-radius: 1rem;
+  overflow: hidden;
+  background-clip: padding-box;
+}
+
+/* Card content: consistent spacing between sections */
+.card-base > * + * {
+  margin-top: 0;
+}
+
+/* White cards get a subtle border and shadow */
+.card-base.bg-white {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card hover utility */
 .card-hover {
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .card-hover:hover {
@@ -102,30 +288,60 @@ a {
   box-shadow: var(--shadow-card);
 }
 
-/* Animations */
+/* Shake animation */
 @keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-8px);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(8px);
-  }
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+  20%, 40%, 60%, 80% { transform: translateX(6px); }
 }
 
 .animate-shake {
   animation: shake 0.5s ease-in-out;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--color-primary-dark), var(--color-secondary-dark));
+}
+
+/* Selection */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-text);
+}
+
+/* Focus */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
