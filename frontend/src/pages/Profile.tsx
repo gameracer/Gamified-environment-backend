@@ -4,7 +4,7 @@ import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
 import { useAuth } from '../context/AuthContext';
-import { Trophy, Zap, Flame, Star, Settings, LogOut, User, TrendingUp, Award } from 'lucide-react';
+import { Trophy, Zap, Flame, Star, Settings, LogOut, TrendingUp, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const MOCK_BADGES = [

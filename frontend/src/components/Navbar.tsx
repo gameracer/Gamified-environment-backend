@@ -27,11 +27,11 @@ export const Navbar: React.FC = () => {
     return (
         <nav className="bg-white border-b-2 border-gray-200 sticky top-0 z-50 shadow-sm">
             <div className="container mx-auto h-16 flex justify-between items-center">
-                <Link to="/" className="text-2xl font-heading font-bold text-[var(--color-primary)] tracking-tight flex items-center gap-2 hover:scale-105 transition-transform">
-                    <div className="bg-[var(--color-primary)] p-1.5 rounded-lg">
+                <Link to="/" className="text-2xl font-heading font-bold text-(--color-primary) tracking-tight flex items-center gap-2 hover:scale-105 transition-transform">
+                    <div className="bg-(--color-primary) p-1.5 rounded-lg">
                         <Trophy className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-gray-700">Gamified<span className="text-[var(--color-primary)]">Learn</span></span>
+                    <span className="text-gray-700">Gamified<span className="text-(--color-primary)">Learn</span></span>
                 </Link>
 
                 {/* Navigation Links */}
