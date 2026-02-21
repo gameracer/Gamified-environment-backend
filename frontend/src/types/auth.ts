@@ -12,5 +12,7 @@ export namespace AuthDtos {
 
     export interface TokenResponse {
         token: string;
+        username: string; // ✅ REQUIRED
+        role: string;
     }
 }

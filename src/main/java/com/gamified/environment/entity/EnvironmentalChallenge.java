@@ -20,5 +20,10 @@ public class EnvironmentalChallenge {
     private String description;
     private String difficulty; // EASY | MEDIUM | HARD
     private String category;
-    private int xpReward;
+    @Column(nullable = false)
+    private Integer xpReward;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private String challengeType = "SYSTEM"; // SYSTEM or COMMUNITY
 }

@@ -8,17 +8,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+// This controller handles administrative operations for the application
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
 
+    // Repositories for accessing database entities
     private final UserRepository userRepository;
     private final EnvironmentalChallengeRepository challengeRepository;
     private final LessonRepository lessonRepository;
     private final BadgeRepository badgeRepository;
 
-    // Dashboard Statistics
+    /**
+     * Retrieves statistics for the admin dashboard.
+     * @return A ResponseEntity containing a map of total counts for users, challenges, lessons, and badges.
+     */
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Object>> getStats() {
         Map<String, Object> stats = new HashMap<>();
@@ -29,12 +34,21 @@ public class AdminController {
         return ResponseEntity.ok(stats);
     }
 
-    // User Management
+    /**
+     * Retrieves a list of all users in the system.
+     * @return A ResponseEntity containing a list of all users.
+     */
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
+    /**
+     * Updates the role of a specific user.
+     * @param id The ID of the user whose role is to be updated.
+     * @param body A map containing the new role for the user.
+     * @return A ResponseEntity containing the updated user.
+     */
     @PutMapping("/users/{id}/role")
     public ResponseEntity<User> updateUserRole(@PathVariable Long id, @RequestBody Map<String, String> body) {
         User user = userRepository.findById(id)
@@ -43,56 +57,17 @@ public class AdminController {
         return ResponseEntity.ok(userRepository.save(user));
     }
 
+    /**
+     * Deletes a user by their ID.
+     * @param id The ID of the user to delete.
+     * @return A ResponseEntity with no content.
+     */
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Challenge Management
-    @GetMapping("/challenges")
-    public ResponseEntity<List<EnvironmentalChallenge>> getAllChallenges() {
-        return ResponseEntity.ok(challengeRepository.findAll());
-    }
-
-    @PostMapping("/challenges")
-    public ResponseEntity<EnvironmentalChallenge> createChallenge(@RequestBody EnvironmentalChallenge challenge) {
-        return ResponseEntity.ok(challengeRepository.save(challenge));
-    }
-
-    @PutMapping("/challenges/{id}")
-    public ResponseEntity<EnvironmentalChallenge> updateChallenge(@PathVariable Long id,
-            @RequestBody EnvironmentalChallenge challenge) {
-        challenge.setId(id);
-        return ResponseEntity.ok(challengeRepository.save(challenge));
-    }
-
-    @DeleteMapping("/challenges/{id}")
-    public ResponseEntity<Void> deleteChallenge(@PathVariable Long id) {
-        challengeRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    // Lesson Management
-    @GetMapping("/lessons")
-    public ResponseEntity<List<Lesson>> getAllLessons() {
-        return ResponseEntity.ok(lessonRepository.findAll());
-    }
-
-    @PostMapping("/lessons")
-    public ResponseEntity<Lesson> createLesson(@RequestBody Lesson lesson) {
-        return ResponseEntity.ok(lessonRepository.save(lesson));
-    }
-
-    @PutMapping("/lessons/{id}")
-    public ResponseEntity<Lesson> updateLesson(@PathVariable Long id, @RequestBody Lesson lesson) {
-        lesson.setId(id);
-        return ResponseEntity.ok(lessonRepository.save(lesson));
-    }
-
-    @DeleteMapping("/lessons/{id}")
-    public ResponseEntity<Void> deleteLesson(@PathVariable Long id) {
-        lessonRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
+    // Note: Challenge Management has been moved to ChallengeController
+    // Note: Lesson Management has been moved to LessonController
 }

@@ -22,7 +22,7 @@ export const Login: React.FC = () => {
         setLoading(true);
         try {
             const data = await api.login({ username, password });
-            login(data.token, username);
+            login(data.token, data.user, data.role);
             navigate('/');
         } catch (err: any) {
             setError(err.message || 'Invalid credentials');

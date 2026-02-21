@@ -1,5 +1,6 @@
 package com.gamified.environment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Module {
+public class LearningModule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,9 @@ public class Module {
     private Integer orderIndex; // Order in which modules should be displayed
 
     // One module → many lessons
+//    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Lesson> lessons = new ArrayList<>();
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Lesson> lessons = new ArrayList<>();
 }

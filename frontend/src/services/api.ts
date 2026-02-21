@@ -1,6 +1,6 @@
 import type { AuthDtos } from "../types/auth";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "/api";
 
 export const api = {
     async register(data: AuthDtos.Register) {
@@ -73,4 +73,27 @@ export const api = {
             throw error;
         }
     },
+    async put(endpoint: string, data: any, token: string) {
+        try {
+            const response = await fetch(`${API_URL}${endpoint}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(error || "PUT request failed");
+            }
+
+            return response.json();
+        } catch (error) {
+            console.error("PUT Error:", error);
+            throw error;
+        }
+    },
+
 };

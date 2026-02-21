@@ -3,8 +3,10 @@ import { Navbar } from '../components/Navbar';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
-import { Search, Trophy, Zap, Flame, Target, Award, Sparkles } from 'lucide-react';
+import { Search, Trophy, Zap, Flame, Target, Award, Sparkles, Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { fetchChallenges } from "../services/ChallangeApi.ts";
+import { useAuth } from '../context/AuthContext';
 
 interface Challenge {
     id: number;
@@ -16,7 +18,7 @@ interface Challenge {
 }
 
 const MOCK_CHALLENGES: Challenge[] = [
-    { id: 1, title: "Plastic-Free Week", description: "Avoid single-use plastics for 7 days", difficulty: "MEDIUM", xpReward: 100 },
+    { id: 1, title: "Plastic-Fr Week", description: "Avoid single-use plastics for 7 days", difficulty: "MEDIUM", xpReward: 100 },
     { id: 2, title: "Plant a Tree", description: "Plant and care for a tree in your community", difficulty: "EASY", xpReward: 50 },
     { id: 3, title: "Energy Saver", description: "Reduce electricity usage by 20% this month", difficulty: "HARD", xpReward: 200 },
     { id: 4, title: "Water Warrior", description: "Save 50 liters of water daily for a week", difficulty: "MEDIUM", xpReward: 100 },
@@ -27,14 +29,33 @@ const MOCK_CHALLENGES: Challenge[] = [
 ];
 
 export const Challenges: React.FC = () => {
+    const { role } = useAuth();
     const [challenges, setChallenges] = useState<Challenge[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const [searchTerm, setSearchTerm] = useState('');
     const [filterDifficulty, setFilterDifficulty] = useState('ALL');
 
     useEffect(() => {
         // TODO: Fetch from API
-        setChallenges(MOCK_CHALLENGES);
+        // setChallenges(MOCK_CHALLENGES);
+        loadChallenges();
     }, []);
+
+    const loadChallenges = async () => {
+        try {
+            setLoading(true);
+            const data = await fetchChallenges();
+            setChallenges(data);
+        } catch (error) {
+            setError("Could not load challenges");
+            // setChallenges(MOCK_CHALLENGES);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
 
     const filteredChallenges = challenges.filter(challenge => {
         const matchesSearch = challenge.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -60,8 +81,10 @@ export const Challenges: React.FC = () => {
             default: return 'from-gray-200 to-gray-300';
         }
     };
-
+    if (loading) return <p>Loading challenges...</p>;
+    if (error) return <p className="text-danger">{error}</p>;
     return (
+
         <div className="min-h-screen bg-gradient-to-br from-background via-accent-light/10 to-primary-light/10">
             <Navbar />
             <div className="container mx-auto px-4 py-8">
@@ -102,7 +125,7 @@ export const Challenges: React.FC = () => {
                             className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 focus:border-accent focus:outline-none transition-all bg-white shadow-sm focus:shadow-md"
                         />
                     </div>
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex gap-2 flex-wrap items-center">
                         {['ALL', 'EASY', 'MEDIUM', 'HARD'].map((difficulty) => (
                             <motion.button
                                 key={difficulty}
@@ -110,13 +133,28 @@ export const Challenges: React.FC = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className={`px-6 py-4 rounded-xl font-bold transition-all ${filterDifficulty === difficulty
-                                        ? 'bg-gradient-primary text-white shadow-lg'
-                                        : 'bg-white text-gray-600 hover:bg-gray-50 shadow-sm'
+                                    ? 'bg-gradient-primary text-white shadow-lg'
+                                    : 'bg-white text-gray-600 hover:bg-gray-50 shadow-sm'
                                     }`}
                             >
                                 {difficulty}
                             </motion.button>
                         ))}
+
+                        {(role === 'COMMUNITY_PARTNER' || role === 'ADMIN') && (
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Button
+                                    variant="primary"
+                                    icon={<Plus className="w-5 h-5" />}
+                                    onClick={() => alert('Create Challenge functionality would open here')}
+                                >
+                                    Create
+                                </Button>
+                            </motion.div>
+                        )}
                     </div>
                 </motion.div>
 

@@ -1,5 +1,6 @@
 package com.gamified.environment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,21 +19,31 @@ public class Lesson {
 
     private String title;
 
-    private String description; // Short description of the lesson
+    private String description;
 
     @Column(columnDefinition = "TEXT")
-    private String content; // Lesson text or HTML content
+    private String content;
 
-    private Integer orderIndex; // Order within the module
+    private Integer orderIndex;
 
-    private Integer xpReward; // XP earned upon completion
+    private Integer xpReward;
+
+    // 🔥 NEW: File support
+    private String fileName;
+
+    private String fileUrl;
+
+    private boolean published = false;
+    private boolean draft=true;
+
 
     // Many lessons → one module
     @ManyToOne
     @JoinColumn(name = "module_id")
-    private Module module;
+    @JsonIgnore   // 🔥 Prevent infinite loop
+    private LearningModule module;
 
-    // One lesson → one quiz (optional)
+    // One lesson → one quiz
     @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
     private Quiz quiz;
 }

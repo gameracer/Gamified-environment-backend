@@ -1,6 +1,6 @@
 package com.gamified.environment.controller;
 
-import com.gamified.environment.entity.Module;
+import com.gamified.environment.entity.LearningModule;
 import com.gamified.environment.repo.ModuleRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class ModuleController {
     // GET ALL MODULES
     // ============================
     @GetMapping
-    public ResponseEntity<List<Module>> getAllModules() {
+    public ResponseEntity<List<LearningModule>> getAllModules() {
         return ResponseEntity.ok(moduleRepository.findAll());
     }
 
@@ -40,9 +40,9 @@ public class ModuleController {
     // CREATE MODULE
     // ============================
     @PostMapping
-    public ResponseEntity<?> createModule(@RequestBody Module module) {
+    public ResponseEntity<?> createModule(@RequestBody LearningModule module) {
         moduleRepository.save(module);
-        return ResponseEntity.ok("Module created");
+        return ResponseEntity.ok("{\"message\": \"Module created\"}");
     }
 
     // ============================
